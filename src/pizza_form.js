@@ -18,8 +18,8 @@ export default function CreatePizza (props) {
 
     
     return (
-        <div>
-        <h1>Create Your Pizza</h1>
+        <div className='pizzaForm'>
+        <h2>Create Your Pizza</h2>
             <form id='pizza-form' onSubmit={onSubmit}>
                 <div className='errors'>
                     <div>{errors.name}</div>

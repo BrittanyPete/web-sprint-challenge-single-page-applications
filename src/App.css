@@ -1,38 +1,73 @@
-.App {
+body {
+  border: 1px solid #f6f6f6;
+  border-radius: 6px;
+  box-shadow: 0px 1px 6px -2px #808080;
+  margin: 16px 8px;
+}
+
+
+nav {
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+a {
+  border: 1px solid #064663;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 5px;
+}
+
+a:hover {
+  transform: scale(1.1);
+  color: white;
+  background-color: #064663;
+}
+
+h1 {
   text-align: center;
+  color: darkred;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  text-align: center;
+  color: darkolivegreen;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.addedOrder {
+  padding-left: 10%;
+  color: darkslategrey;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#pizza-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.errors {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 2%;
+}
+
+button {
+  height: 2rem;
+  width: 6rem;
+  border-radius: 8px;
   color: white;
+  background-color: #064663;
+  border: 2px solid #064663;
+  margin: 2%;
 }
-
-.App-link {
-  color: #61dafb;
+button:hover{
+  cursor: pointer;
+  transform: scale(1.1);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  button:disabled {
+    color: white;
+    background-color: lightgrey;
+    border: 1px solid lightgrey;
+    cursor: not-allowed;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}

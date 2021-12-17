@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './App.css';
 import { Link, Route, Switch } from 'react-router-dom';
 import CreatePizza from './pizza_form';
 import Home from './home';
@@ -75,7 +76,7 @@ const addNewOrder = newOrder => {
       name: formValues.name.trim(),
       size: formValues.size,
       toppings: ['cheese', 'pepperoni', 'sausage', 'ham', 'olives', 'tomatoes', 'chicken', 'extraCheese'].filter(topping => !!formValues[topping]),
-      specialInstructions: formValues.specialInstructions,
+      instructions: formValues.instructions,
     }
     addNewOrder(newOrder);
   }

@@ -11,7 +11,7 @@ export default function Home(props) {
     return (
         <div>
 
-            <div>
+            <div className='addedOrder'>
                 <h3>Name: {details.name}</h3> 
                 <p>Size: {details.size}</p>
                 {
