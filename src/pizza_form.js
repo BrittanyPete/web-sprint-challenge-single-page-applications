@@ -4,6 +4,7 @@ import React from 'react';
 export default function CreatePizza (props) {
     const { values, change, submit, errors, disabled } = props;
 
+
     const onSubmit = evt => {
         evt.preventDefault()
         submit()
@@ -22,6 +23,7 @@ export default function CreatePizza (props) {
             <form id='pizza-form' onSubmit={onSubmit}>
                 <div className='errors'>
                     <div>{errors.name}</div>
+                    <div>{errors.size}</div>
                 </div>
                 <label>Name:
                     <input 
@@ -99,18 +101,12 @@ export default function CreatePizza (props) {
                       onChange={onChange}
                     />
                 </label>
-                <label>Extra Cheese
-                    <input 
-                      type='checkbox'
-                      name='extraCheese'
-                      checked={values.ExtraCheese}
-                      onChange={onChange}
-                    />
-                </label>
+
                 <label>Special Instructions:
                     <input 
                       type='text'
-                      name='specialInstructions'
+                      name='instructions'
+                      value={values.instructions}
                       id='special-text'
                       placeholder='Any special instructions?'
                       maxLength='250'

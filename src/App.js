@@ -10,7 +10,7 @@ import axios from 'axios';
 const initialFormValues = {
   name: '',
   size: '',
-  sauce: '',
+  instructions: '',
   cheese: false,
   pepperoni: false,
   ham: false,
@@ -18,16 +18,15 @@ const initialFormValues = {
   sausage: false,
   tomatoes: false,
   chicken: false,
-  extraCheese: false,
-  specialInstructions: '',
 }
 const initialFormErrors = {
-  name: ''
+  name: '',
+  size: '',
+  instructions: '',
 }
 
 const initialOrder = [];
 const initialDisabled = true;
-
 
 
 const App = () => {
@@ -46,7 +45,6 @@ const App = () => {
         console.error('Error:', err);
       })
     }
-    // accessOrders();
   }, [])
 
 
@@ -113,7 +111,6 @@ const addNewOrder = newOrder => {
               <Home key={order.id} details={order} />
             )
           })}
-            {/* <Home orders={orders} /> */}
       </Route>
     </Switch>
 

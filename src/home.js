@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+
 
 export default function Home(props) {
     const { details } = props;
@@ -7,16 +7,6 @@ export default function Home(props) {
         return <h3>Fetching orders</h3>
     }
 
-    // useEffect(() => {
-    //     const accessOrders = () => {
-    //       axios.get(`https://reqres.in/api/orders`)
-    //       .then(resp => console.log(resp.data.data))
-    //       .catch(err => {
-    //         console.error('Error:', err);
-    //       })
-    //     }
-    //     accessOrders();
-    //   }, [])
 
     return (
         <div>
@@ -33,7 +23,7 @@ export default function Home(props) {
                         </ul>
                     </div>
                 }
-                <p>Special Instructions: {details.specialInstructions}</p>
+                <p>Special Instructions: {details.instructions}</p>
 
 
             </div>
