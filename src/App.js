@@ -14,7 +14,7 @@ const initialFormValues = {
   olives: false,
   sausage: false,
   tomatoes: false,
-  grilledChicken: false,
+  chicken: false,
   extraCheese: false,
   specialInstructions: '',
 }
@@ -26,6 +26,11 @@ const App = () => {
   const [order, setOrder] = useState(initialOrder);
   const [formValues, setFormValues] = useState(initialFormValues);
 
+
+  const changeValues = (name, value) => {
+    setFormValues({ ...formValues, [name]: value})
+  }
+
   return (
     <>
       <nav>
@@ -36,7 +41,10 @@ const App = () => {
       
     <Switch>
       <Route exact path='/pizza'>
-        <CreatePizza values={formValues} />
+        <CreatePizza 
+          values={formValues}
+          change={changeValues} 
+          />
       </Route>
       <Route exact path='/'>
         <Home />
