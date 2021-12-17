@@ -37,21 +37,22 @@ const App = () => {
   const [disabled, setDisabled] = useState(initialDisabled)
 
 
-useEffect(() => {
-  const accessOrders = () => {
-    axios.get(`https://reqres.in/api/orders`)
-    .then(resp => setOrders(resp.data.data))
-    .catch(err => {
-      console.error('Error:', err);
-    })
-  }
-  // accessOrders();
-}, [])
+
+  useEffect(() => {
+    const accessOrders = () => {
+      axios.get(`https://reqres.in/api/orders`)
+      .then(resp => setOrders(resp.data.data))
+      .catch(err => {
+        console.error('Error:', err);
+      })
+    }
+    // accessOrders();
+  }, [])
 
 
 
 const addNewOrder = newOrder => {
-  axios.post('https://reqres.in/ami/orders', newOrder)
+  axios.post('https://reqres.in/api/orders', newOrder)
   .then(resp => {
     setOrders([ resp.data, ...orders ])
   })
@@ -81,9 +82,6 @@ const addNewOrder = newOrder => {
     addNewOrder(newOrder);
   }
 
-  // useEffect(() => {
-  //   accessOrders()
-  // })
 
   useEffect(() => {
     schema.isValid(formValues).then(valid => setDisabled(!valid))
@@ -109,7 +107,13 @@ const addNewOrder = newOrder => {
           />
       </Route>
       <Route exact path='/'>
-            <Home orders={orders} />
+      <h2>List of Orders</h2>
+          {orders.map((order) => {
+            return (
+              <Home key={order.id} details={order} />
+            )
+          })}
+            {/* <Home orders={orders} /> */}
       </Route>
     </Switch>
 

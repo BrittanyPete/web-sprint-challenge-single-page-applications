@@ -110,6 +110,7 @@ export default function CreatePizza (props) {
                 <label>Special Instructions:
                     <input 
                       type='text'
+                      name='specialInstructions'
                       id='special-text'
                       placeholder='Any special instructions?'
                       maxLength='250'

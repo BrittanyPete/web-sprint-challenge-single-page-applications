@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 export default function Home(props) {
-    const { orders } = props;
+    const { details } = props;
+    if (!details) {
+        return <h3>Fetching orders</h3>
+    }
 
     // useEffect(() => {
     //     const accessOrders = () => {
@@ -17,17 +20,22 @@ export default function Home(props) {
 
     return (
         <div>
-            <h2>List of Orders</h2>
+
             <div>
-                {orders.map((order, idx) => (
+                <h3>Name: {details.name}</h3> 
+                <p>Size: {details.size}</p>
+                {
+                    !!details.toppings && !!details.toppings.length &&
                     <div>
-                       <h3>{order.name}</h3> 
-                        <p>Order Number: {idx}</p>
-                        <p>{order.size}</p>
-                        <p>{order.toppings}</p>
-                        <p>{order.specialInstructions}</p>
+                        Toppings:
+                        <ul>
+                            {details.toppings.map((item, idx) => <li key={idx}>{item}</li>)}
+                        </ul>
                     </div>
-                ))}
+                }
+                <p>Special Instructions: {details.specialInstructions}</p>
+
+
             </div>
         </div>
     )
