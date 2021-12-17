@@ -2,8 +2,12 @@ import React from 'react';
 
 
 export default function CreatePizza (props) {
-    const { values, change } = props;
+    const { values, change, submit, errors, disabled } = props;
 
+    const onSubmit = evt => {
+        evt.preventDefault()
+        submit()
+    }
     
     const onChange = evt => {
         const { name, value, checked, type } = evt.target
@@ -15,7 +19,10 @@ export default function CreatePizza (props) {
     return (
         <div>
         <h1>Create Your Pizza</h1>
-            <form id='pizza-form'>
+            <form id='pizza-form' onSubmit={onSubmit}>
+                <div className='errors'>
+                    <div>{errors.name}</div>
+                </div>
                 <label>Name:
                     <input 
                         id='name-input'
@@ -33,7 +40,7 @@ export default function CreatePizza (props) {
                         <option value='small'>Small</option>
                         <option value='medium'>Medium</option>
                         <option value='large'>Large</option>
-                        <option value='Family'>Family</option>
+                        <option value='family'>Family</option>
                     </select>
                 </label>
                 <label>Cheese
@@ -109,7 +116,7 @@ export default function CreatePizza (props) {
                       onChange={onChange}
                     />
                 </label>
-                <button id='order-button'>Place Order</button>
+                <button id='order-button' disabled={disabled}>Place Order</button>
             </form>
         </div>
     )

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Route, Switch } from 'react-router-dom';
 import CreatePizza from './pizza_form';
 import Home from './home';
+import * as yup from 'yup';
+import schema from './formSchema';
+import axios from 'axios';
 
 
 const initialFormValues = {
@@ -18,18 +21,74 @@ const initialFormValues = {
   extraCheese: false,
   specialInstructions: '',
 }
+const initialFormErrors = {
+  name: ''
+}
 
 const initialOrder = [];
+const initialDisabled = true;
+
 
 
 const App = () => {
-  const [order, setOrder] = useState(initialOrder);
+  const [orders, setOrders] = useState(initialOrder);
   const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled)
 
+
+useEffect(() => {
+  const accessOrders = () => {
+    axios.get(`https://reqres.in/api/orders`)
+    .then(resp => setOrders(resp.data.data))
+    .catch(err => {
+      console.error('Error:', err);
+    })
+  }
+  // accessOrders();
+}, [])
+
+
+
+const addNewOrder = newOrder => {
+  axios.post('https://reqres.in/ami/orders', newOrder)
+  .then(resp => {
+    setOrders([ resp.data, ...orders ])
+  })
+  .catch(err => console.log(err))
+  .finally(() => setFormValues(initialFormValues))
+}
+
+  const validate = (name, value) => {
+    yup.reach(schema, name)
+    .validate(value)
+    .then(() => setFormErrors({ ...formErrors, [name]: ''}))
+    .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
+  }
 
   const changeValues = (name, value) => {
+    validate(name, value)
     setFormValues({ ...formValues, [name]: value})
   }
+
+  const submitOrder = () => {
+    const newOrder = {
+      name: formValues.name.trim(),
+      size: formValues.size,
+      toppings: ['cheese', 'pepperoni', 'sausage', 'ham', 'olives', 'tomatoes', 'chicken', 'extraCheese'].filter(topping => !!formValues[topping]),
+      specialInstructions: formValues.specialInstructions,
+    }
+    addNewOrder(newOrder);
+  }
+
+  // useEffect(() => {
+  //   accessOrders()
+  // })
+
+  useEffect(() => {
+    schema.isValid(formValues).then(valid => setDisabled(!valid))
+  }, [formValues])
+
 
   return (
     <>
@@ -43,11 +102,14 @@ const App = () => {
       <Route exact path='/pizza'>
         <CreatePizza 
           values={formValues}
-          change={changeValues} 
+          change={changeValues}
+          submit={submitOrder} 
+          disabled={disabled}
+          errors={formErrors}
           />
       </Route>
       <Route exact path='/'>
-        <Home />
+            <Home orders={orders} />
       </Route>
     </Switch>
 
