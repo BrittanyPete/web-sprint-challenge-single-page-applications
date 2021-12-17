@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Route, Switch } from 'react-router-dom';
 import CreatePizza from './pizza_form';
 import Home from './home';
 
+
+const initialFormValues = {
+  name: '',
+  size: '',
+  sauce: '',
+  cheese: false,
+  pepperoni: false,
+  ham: false,
+  olives: false,
+  sausage: false,
+  tomatoes: false,
+  grilledChicken: false,
+  extraCheese: false,
+  specialInstructions: '',
+}
+
+const initialOrder = [];
+
+
 const App = () => {
+  const [order, setOrder] = useState(initialOrder);
+  const [formValues, setFormValues] = useState(initialFormValues);
+
   return (
     <>
       <nav>
@@ -13,10 +35,10 @@ const App = () => {
       <h1>Lambda Eats</h1>
       
     <Switch>
-      <Route path='/pizza'>
-        <CreatePizza />
+      <Route exact path='/pizza'>
+        <CreatePizza values={formValues} />
       </Route>
-      <Route path='/'>
+      <Route exact path='/'>
         <Home />
       </Route>
     </Switch>
